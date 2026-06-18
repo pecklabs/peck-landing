@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Peck - AI PR review agent</title>
+    <meta
+      name="description"
+      content="Peck is a native macOS menu-bar app that watches GitHub PRs, drafts AI reviews, and shows your PR approval status from egg to chicken."
+    >
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Peck home">
+        <img src="assets/brand/peck-mark.png" alt="">
+        <span>Peck</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a class="github-link" href="https://github.com/pecklabs/peck" aria-label="Open Peck on GitHub">
+          <i class="ph ph-github-logo" aria-hidden="true"></i>
+        </a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Your pull requests, reviewed and hatched.</h1>
+          <p class="hero-lede">
+            Peck watches the PRs that need your review, drafts an agent verdict, and turns your own PR approval status into a live quest.
+          </p>
+          <div class="hero-actions" aria-label="Download and source links">
+            <a class="button primary" href="https://github.com/pecklabs/peck/releases/latest">
+              <i class="ph ph-download-simple" aria-hidden="true"></i>
+              Download for macOS
+            </a>
+            <a class="button secondary" href="https://github.com/pecklabs/peck">
+              <i class="ph ph-github-logo" aria-hidden="true"></i>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <div class="pr-window" aria-label="Animated GitHub-style pull request status preview">
+          <div class="github-repo-head">
+            <div class="repo-path">
+              <svg
+                data-component="Octicon"
+                aria-hidden="true"
+                focusable="false"
+                class="octicon octicon-mark-github"
+                viewBox="0 0 24 24"
+                width="32"
+                height="32"
+                fill="currentColor"
+              >
+                <path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"></path>
+              </svg>
+              <span class="repo-name">
+                <a href="https://github.com/pecklabs">pecklabs</a>
+                <span>/</span>
+                <a href="https://github.com/pecklabs/peck">peck</a>
+              </span>
+            </div>
+            <nav class="repo-tabs" aria-label="GitHub repository navigation">
+              <span><i class="ph ph-code" aria-hidden="true"></i> Code</span>
+              <span><i class="ph ph-circle" aria-hidden="true"></i> Issues</span>
+              <span class="active"><i class="ph ph-git-pull-request" aria-hidden="true"></i> Pull requests</span>
+              <span><i class="ph ph-robot" aria-hidden="true"></i> Agents</span>
+            </nav>
+          </div>
+          <div class="pr-title-row">
+            <div>
+              <h2>Ship review queue sidebar</h2>
+              <p>#128 opened by sasha · updated just now</p>
+            </div>
+            <span class="state open">Open</span>
+          </div>
+          <div class="checks-panel">
+            <div class="check-line active">
+              <span class="check-dot"></span>
+              <div>
+                <strong>Peck agent is reviewing</strong>
+                <p>Diff scanned, risks summarized, verdict ready to post.</p>
+              </div>
+              <span class="check-time">12s</span>
+            </div>
+            <div class="check-line">
+              <span class="check-dot approved"></span>
+              <div>
+                <strong id="approvalLabel">0 of 3 approvals</strong>
+                <p id="approvalText">Waiting for the first review.</p>
+              </div>
+              <span class="check-time" id="approvalStage">Egg</span>
+            </div>
+          </div>
+          <div class="mascot-stage">
+            <div class="mascot-ring">
+              <img id="mascotImage" src="assets/mascots/egg.png" alt="Egg approval stage">
+            </div>
+            <div class="stage-copy">
+              <p class="stage-kicker">Live approval status</p>
+              <strong id="stageTitle">Egg</strong>
+              <span id="stageDescription">A fresh PR is waiting for reviewers.</span>
+            </div>
+          </div>
+          <div class="timeline" aria-label="Approval progress">
+            <span class="timeline-step current" data-step="0">🥚</span>
+            <span class="timeline-step" data-step="1">🐣</span>
+            <span class="timeline-step" data-step="2">🐔</span>
+            <span class="timeline-step" data-step="3">🍗</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section github-feed" id="agent" aria-labelledby="agent-title">
+        <div class="section-copy">
+          <p class="eyebrow">Agent review</p>
+          <h2 class="display-title" id="agent-title">A PR review queue that feels like GitHub, but acts for you.</h2>
+          <p>
+            The agent reads the pull request, writes a plain-language explanation, and recommends approve, request changes, or comment.
+            You stay in control and post the final review with one click.
+          </p>
+        </div>
+        <div class="review-list" aria-label="Review queue features">
+          <article class="review-item">
+            <span class="avatar">AI</span>
+            <div>
+              <strong>Draft verdicts</strong>
+              <p>Ready-to-post review bodies with the reasoning separated from the action.</p>
+            </div>
+          </article>
+          <article class="review-item">
+            <span class="avatar user">GH</span>
+            <div>
+              <strong>GitHub-native workflow</strong>
+              <p>Uses your existing GitHub CLI login or token, with credentials kept in Keychain.</p>
+            </div>
+          </article>
+          <article class="review-item">
+            <span class="avatar rules">MD</span>
+            <div>
+              <strong>Your review rules</strong>
+              <p>Drop markdown skill files into the app support folder so the agent reviews like your team.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="screens-section" id="status" aria-labelledby="status-title">
+        <div class="section-copy compact">
+          <p class="eyebrow">My PR status</p>
+          <h2 class="display-title" id="status-title">See what is blocked, what is waiting, and what became chicken.</h2>
+        </div>
+        <div class="menubar-demo">
+          <div class="mac-menu-bar" aria-hidden="true">
+            <div class="menu-left">
+              <span>Peck</span>
+              <span>File</span>
+              <span>Edit</span>
+              <span>View</span>
+            </div>
+            <div class="menu-right">
+              <span class="peck-menu-item active">
+                <img src="assets/brand/peck-mark.png" alt="">
+              </span>
+              <i class="ph ph-wifi-high"></i>
+              <i class="ph ph-battery-high"></i>
+              <span>9:41</span>
+            </div>
+          </div>
+          <div class="status-grid">
+            <section class="app-preview-window menu-popover" aria-label="My pull request status preview">
+            <div class="app-toolbar">
+              <div class="app-name">
+                <strong>Peck</strong>
+                <span class="live-dot" aria-label="Connected"></span>
+              </div>
+              <div class="app-actions">
+                <i class="ph ph-arrow-clockwise" aria-hidden="true"></i>
+                <i class="ph ph-dots-three-circle" aria-hidden="true"></i>
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="app-tabs" aria-label="Peck tabs">
+              <span class="active">My PRs</span>
+              <span>Reviews</span>
+              <span>Settings</span>
+            </div>
+            <div class="app-preview-body">
+              <div class="mock-screen my-pr-screen">
+                <article class="my-pr-card conflict-card">
+                  <h3>feat(auth): OAuth device-flow login</h3>
+                  <p class="repo-meta">acme/web #142</p>
+                  <div class="quest-strip conflict-strip">
+                    <img src="assets/mascots/friedchicken-conflict.png" alt="">
+                    <div class="quest-progress-copy">
+                      <div>
+                        <strong>Boss: conflict</strong>
+                        <span>2/2 approvals</span>
+                      </div>
+                      <div class="split-progress full">
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="status-row">
+                    <span class="status-pill danger"><i class="ph ph-warning" aria-hidden="true"></i> Conflict</span>
+                    <span class="status-pill checks"><i class="ph ph-check-circle" aria-hidden="true"></i> Checks</span>
+                    <span class="status-pill neutral"><i class="ph ph-chat-circle" aria-hidden="true"></i> 1</span>
+                    <span class="status-pill sparkle"><i class="ph ph-sparkle" aria-hidden="true"></i> 1</span>
+                  </div>
+                </article>
+
+                <article class="my-pr-card">
+                  <h3>feat(i18n): RTL support for Arabic</h3>
+                  <p class="repo-meta">acme/web #150</p>
+                  <div class="quest-strip laid-strip">
+                    <img src="assets/mascots/egg.png" alt="">
+                    <div class="quest-progress-copy">
+                      <div>
+                        <strong>Laid</strong>
+                        <span>0/2 approvals</span>
+                      </div>
+                      <div class="split-progress">
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="status-row split">
+                    <span class="status-pill neutral"><i class="ph ph-pencil-simple-line" aria-hidden="true"></i> Draft</span>
+                    <span class="waiting">Waiting on: @lee, @dana</span>
+                  </div>
+                </article>
+
+                <article class="my-pr-card">
+                  <h3>fix(api): handle null user on /v2 submission</h3>
+                  <p class="repo-meta">acme/api #88</p>
+                  <div class="quest-strip laid-strip">
+                    <img src="assets/mascots/chicken.png" alt="">
+                    <div class="quest-progress-copy">
+                      <div>
+                        <strong>Grown</strong>
+                        <span>1/2 approvals</span>
+                      </div>
+                      <div class="split-progress one">
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="status-row split">
+                    <span class="status-pill pending"><i class="ph ph-clock-countdown" aria-hidden="true"></i> Checks</span>
+                    <span class="waiting">Waiting on: @dana</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+            </section>
+
+            <section class="app-preview-window menu-popover" aria-label="Agent review queue preview">
+            <div class="app-toolbar">
+              <div class="app-name">
+                <strong>Peck</strong>
+                <span class="live-dot" aria-label="Connected"></span>
+              </div>
+              <div class="app-actions">
+                <i class="ph ph-arrow-clockwise" aria-hidden="true"></i>
+                <i class="ph ph-dots-three-circle" aria-hidden="true"></i>
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="app-tabs" aria-label="Peck tabs">
+              <span>My PRs</span>
+              <span class="active">Reviews</span>
+              <span>Settings</span>
+            </div>
+            <div class="app-preview-body">
+              <div class="mock-screen review-screen">
+                <article class="review-card request-card">
+                  <h3>feat(cache): add TTL-based eviction to the response cache</h3>
+                  <p class="repo-meta">acme/web #137 · @octocat</p>
+                  <div class="diff-row">
+                    <span class="plus">+120</span>
+                    <span class="minus">-44</span>
+                    <span><i class="ph ph-file" aria-hidden="true"></i> 8</span>
+                    <span>1h ago</span>
+                  </div>
+                  <div class="verdict-line">
+                    <span class="review-verdict changes">! Request changes</span>
+                    <span>default-review</span>
+                  </div>
+                  <p class="review-summary">
+                    Adds time-based expiry to the in-memory response cache. The eviction timer isn't cancelled on clear(), so a stale timer can fire after a manual flush and revive evicted entries.
+                  </p>
+                  <ul class="review-notes">
+                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> clear() doesn't cancel the pending eviction timer -> entries can reappear</li>
+                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> No test covering clear() during the TTL window</li>
+                  </ul>
+                  <span class="review-body-label">Review body</span>
+                  <div class="review-body-box">A couple of things before this is good to merge:</div>
+                  <div class="review-actions">
+                    <button type="button">Approve</button>
+                    <button type="button" class="danger">Request changes</button>
+                    <button type="button" class="comment">Comment</button>
+                  </div>
+                  <a class="open-github" href="https://github.com/pecklabs/peck">
+                    <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                    Open on GitHub
+                  </a>
+                </article>
+              </div>
+            </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <span>Peck</span>
+      <a href="https://github.com/pecklabs/peck">GitHub</a>
+      <a href="https://github.com/pecklabs/peck/releases/latest">Download</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
