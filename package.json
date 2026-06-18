@@ -1,0 +1,7 @@
+{
+  "name": "peck-landing",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf public && mkdir -p public && cp -R index.html styles.css script.js assets public/"
+  }
+}
