@@ -39,10 +39,6 @@
               <i class="ph ph-download-simple" aria-hidden="true"></i>
               Download for macOS
             </a>
-            <a class="button secondary" href="https://github.com/pecklabs/peck">
-              <i class="ph ph-github-logo" aria-hidden="true"></i>
-              View on GitHub
-            </a>
           </div>
         </div>
 
@@ -126,8 +122,7 @@
             The agent reads the pull request, writes a plain-language explanation, and recommends approve, request changes, or comment.
             You stay in control and post the final review with one click.
           </p>
-        </div>
-        <div class="review-list" aria-label="Review queue features">
+          <div class="review-list" aria-label="Review queue features">
           <article class="review-item">
             <span class="avatar">AI</span>
             <div>
@@ -149,6 +144,63 @@
               <p>Drop markdown skill files into the app support folder so the agent reviews like your team.</p>
             </div>
           </article>
+          </div>
+        </div>
+        <div class="agent-preview">
+          <section class="app-preview-window menu-popover" aria-label="Agent review queue preview">
+            <div class="app-toolbar">
+              <div class="app-name">
+                <strong>Peck</strong>
+                <span class="live-dot" aria-label="Connected"></span>
+              </div>
+              <div class="app-actions">
+                <i class="ph ph-arrow-clockwise" aria-hidden="true"></i>
+                <i class="ph ph-dots-three-circle" aria-hidden="true"></i>
+                <i class="ph ph-caret-down" aria-hidden="true"></i>
+              </div>
+            </div>
+            <div class="app-tabs" aria-label="Peck tabs">
+              <span>My PRs</span>
+              <span class="active">Reviews</span>
+              <span>Settings</span>
+            </div>
+            <div class="app-preview-body">
+              <div class="mock-screen review-screen">
+                <article class="review-card request-card">
+                  <h3>feat(cache): add TTL-based eviction to the response cache</h3>
+                  <p class="repo-meta">acme/web #137 · @octocat</p>
+                  <div class="diff-row">
+                    <span class="plus">+120</span>
+                    <span class="minus">-44</span>
+                    <span><i class="ph ph-file" aria-hidden="true"></i> 8</span>
+                    <span>1h ago</span>
+                  </div>
+                  <div class="verdict-line">
+                    <span class="review-verdict changes">! Request changes</span>
+                    <span>default-review</span>
+                  </div>
+                  <p class="review-summary">
+                    Adds time-based expiry to the in-memory response cache. The eviction timer isn't cancelled on clear(), so a stale timer can fire after a manual flush and revive evicted entries.
+                  </p>
+                  <ul class="review-notes">
+                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> clear() doesn't cancel the pending eviction timer -> entries can reappear</li>
+                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> No test covering clear() during the TTL window</li>
+                  </ul>
+                  <span class="review-body-label">Review body</span>
+                  <div class="review-body-box">A couple of things before this is good to merge:</div>
+                  <div class="review-actions">
+                    <button type="button">Approve</button>
+                    <button type="button" class="danger">Request changes</button>
+                    <button type="button" class="comment">Comment</button>
+                  </div>
+                  <a class="open-github" href="https://github.com/pecklabs/peck">
+                    <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
+                    Open on GitHub
+                  </a>
+                </article>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
 
@@ -260,61 +312,6 @@
                     <span class="status-pill pending"><i class="ph ph-clock-countdown" aria-hidden="true"></i> Checks</span>
                     <span class="waiting">Waiting on: @dana</span>
                   </div>
-                </article>
-              </div>
-            </div>
-            </section>
-
-            <section class="app-preview-window menu-popover" aria-label="Agent review queue preview">
-            <div class="app-toolbar">
-              <div class="app-name">
-                <strong>Peck</strong>
-                <span class="live-dot" aria-label="Connected"></span>
-              </div>
-              <div class="app-actions">
-                <i class="ph ph-arrow-clockwise" aria-hidden="true"></i>
-                <i class="ph ph-dots-three-circle" aria-hidden="true"></i>
-                <i class="ph ph-caret-down" aria-hidden="true"></i>
-              </div>
-            </div>
-            <div class="app-tabs" aria-label="Peck tabs">
-              <span>My PRs</span>
-              <span class="active">Reviews</span>
-              <span>Settings</span>
-            </div>
-            <div class="app-preview-body">
-              <div class="mock-screen review-screen">
-                <article class="review-card request-card">
-                  <h3>feat(cache): add TTL-based eviction to the response cache</h3>
-                  <p class="repo-meta">acme/web #137 · @octocat</p>
-                  <div class="diff-row">
-                    <span class="plus">+120</span>
-                    <span class="minus">-44</span>
-                    <span><i class="ph ph-file" aria-hidden="true"></i> 8</span>
-                    <span>1h ago</span>
-                  </div>
-                  <div class="verdict-line">
-                    <span class="review-verdict changes">! Request changes</span>
-                    <span>default-review</span>
-                  </div>
-                  <p class="review-summary">
-                    Adds time-based expiry to the in-memory response cache. The eviction timer isn't cancelled on clear(), so a stale timer can fire after a manual flush and revive evicted entries.
-                  </p>
-                  <ul class="review-notes">
-                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> clear() doesn't cancel the pending eviction timer -> entries can reappear</li>
-                    <li><i class="ph ph-warning-circle" aria-hidden="true"></i> No test covering clear() during the TTL window</li>
-                  </ul>
-                  <span class="review-body-label">Review body</span>
-                  <div class="review-body-box">A couple of things before this is good to merge:</div>
-                  <div class="review-actions">
-                    <button type="button">Approve</button>
-                    <button type="button" class="danger">Request changes</button>
-                    <button type="button" class="comment">Comment</button>
-                  </div>
-                  <a class="open-github" href="https://github.com/pecklabs/peck">
-                    <i class="ph ph-arrow-square-out" aria-hidden="true"></i>
-                    Open on GitHub
-                  </a>
                 </article>
               </div>
             </div>
