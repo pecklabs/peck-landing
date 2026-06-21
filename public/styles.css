@@ -536,7 +536,7 @@ h2 {
   font-size: 13.5px;
 }
 
-.pr-tabs span {
+.pr-tabs > span {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -548,7 +548,7 @@ h2 {
   white-space: nowrap;
 }
 
-.pr-tabs span.active {
+.pr-tabs > span.active {
   color: var(--text);
   font-weight: 700;
   border-color: var(--border);
@@ -577,7 +577,7 @@ h2 {
 .pr-diffstat {
   margin-left: auto;
   padding-right: 0 !important;
-  gap: 6px !important;
+  gap: 5px !important;
   font-weight: 700;
 }
 
@@ -591,12 +591,12 @@ h2 {
 
 .diff-squares {
   display: inline-flex;
-  gap: 3px;
+  gap: 2px;
 }
 
 .diff-squares .sq {
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 2px;
 }
 
@@ -606,6 +606,10 @@ h2 {
 
 .diff-squares .del {
   background: #cf222e;
+}
+
+.diff-squares .partial {
+  background: linear-gradient(135deg, #cf222e 0 50%, var(--border) 50% 100%);
 }
 
 .diff-squares .none {
