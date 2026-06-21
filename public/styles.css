@@ -226,6 +226,19 @@ h2 {
   margin-top: 30px;
 }
 
+.hero-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hero-note i {
+  font-size: 16px;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
