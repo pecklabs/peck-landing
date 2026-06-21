@@ -547,6 +547,15 @@ h2 {
   );
 }
 
+/* Zigzag layout: in the agent section the mock sits on the left. */
+.section.github-feed {
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 0.82fr);
+}
+
+.section.github-feed .agent-preview {
+  order: -1;
+}
+
 .section-copy {
   max-width: 640px;
 }
@@ -1365,6 +1374,11 @@ footer span {
   .section,
   .screens-section {
     grid-template-columns: 1fr;
+  }
+
+  /* Stack copy above the mock on small screens. */
+  .section.github-feed .agent-preview {
+    order: 0;
   }
 
   .hero {

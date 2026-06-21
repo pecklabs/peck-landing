@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
+import { Agentation } from "agentation";
 
 export const metadata = {
   title: "Peck - AI PR review agent",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
       <body>
         {children}
         <Analytics />
+        {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
   );
