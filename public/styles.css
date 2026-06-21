@@ -12,8 +12,9 @@
   --border-strong: #8c959f;
   --text: #1f2328;
   --muted: #59636e;
-  --green: #1a7f37;
-  --green-dark: #116329;
+  /* Brand primary — yellow to match the app icon */
+  --green: #fdc326;
+  --green-dark: #c89200;
   --yellow: #bf8700;
   --orange: #bc4c00;
   --blue: #0969da;
@@ -36,8 +37,8 @@
     --border-strong: #8b949e;
     --text: #f0f6fc;
     --muted: #8b949e;
-    --green: #238636;
-    --green-dark: #2ea043;
+    --green: #fdc326;
+    --green-dark: #ffd24d;
     --yellow: #d29922;
     --orange: #f78166;
     --blue: #58a6ff;
@@ -226,19 +227,6 @@ h2 {
   margin-top: 30px;
 }
 
-.hero-note {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.hero-note i {
-  font-size: 16px;
-}
-
 .button {
   display: inline-flex;
   align-items: center;
@@ -254,14 +242,14 @@ h2 {
 }
 
 .button.primary {
-  color: #ffffff;
+  color: #1f2328;
   background: var(--green);
-  border-color: rgba(26, 127, 55, 0.65);
-  box-shadow: 0 10px 24px rgba(26, 127, 55, 0.22);
+  border-color: rgba(214, 165, 18, 0.65);
+  box-shadow: 0 10px 24px rgba(253, 195, 38, 0.28);
 }
 
 .button.primary:hover {
-  background: var(--green-dark);
+  background: #ffce40;
 }
 
 .button.secondary {
@@ -284,7 +272,7 @@ h2 {
 }
 
 .pr-title-row,
-.checks-panel,
+.pr-main,
 .mascot-stage {
   margin: 0 22px;
 }
@@ -368,10 +356,6 @@ h2 {
   }
 }
 
-.pr-title-row {
-  border-bottom: 1px solid var(--border);
-}
-
 .repo-name {
   color: var(--blue);
   font-size: 18px;
@@ -400,16 +384,19 @@ h2 {
 }
 
 .pr-title-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
   padding: 20px 0;
 }
 
 .pr-title-row h2 {
-  margin-bottom: 4px;
+  margin-bottom: 10px;
   font-size: clamp(22px, 3vw, 30px);
+}
+
+.pr-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .pr-title-row p,
@@ -420,9 +407,16 @@ h2 {
 }
 
 .state.open {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #ffffff;
-  background: var(--green);
-  border-color: var(--green);
+  background: #1a7f37;
+  border-color: #1a7f37;
+}
+
+.state.open i {
+  font-size: 14px;
 }
 
 .checks-panel {
@@ -464,8 +458,18 @@ h2 {
 .mascot-stage {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 18px;
-  padding: 22px 0;
+  padding: 20px 0 24px;
+  text-align: right;
+}
+
+.mascot-stage .stage-copy {
+  order: 1;
+}
+
+.mascot-stage .mascot-ring {
+  order: 2;
 }
 
 .mascot-ring {
@@ -511,37 +515,298 @@ h2 {
   color: var(--muted);
 }
 
+/* GitHub-style PR: full-width tabs, then comment + reviewers sidebar */
+.pr-main {
+  padding: 9px 0 22px;
+}
+
+.pr-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* GitHub-style PR tabs row: the active tab is an open-bottomed box. */
+.pr-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13.5px;
+}
+
+.pr-tabs span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-radius: 7px 7px 0 0;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.pr-tabs span.active {
+  color: var(--text);
+  font-weight: 700;
+  border-color: var(--border);
+  border-bottom-color: var(--surface);
+  background: var(--surface);
+}
+
+.pr-tabs i {
+  font-size: 16px;
+}
+
+.pr-tabs em {
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.pr-tabs span.active em {
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.pr-diffstat {
+  margin-left: auto;
+  padding-right: 0 !important;
+  gap: 6px !important;
+  font-weight: 700;
+}
+
+.pr-diffstat .plus {
+  color: #1a7f37;
+}
+
+.pr-diffstat .minus {
+  color: #cf222e;
+}
+
+.diff-squares {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.diff-squares .sq {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+}
+
+.diff-squares .add {
+  background: #2da44e;
+}
+
+.diff-squares .del {
+  background: #cf222e;
+}
+
+.diff-squares .none {
+  background: var(--border);
+}
+
+/* PR comment thread */
+.pr-comment {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+}
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-muted);
+}
+
+.comment-box {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.comment-head {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px 10px 0 0;
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.comment-head strong {
+  color: var(--text);
+}
+
+.comment-body {
+  padding: 12px 14px;
+}
+
+.comment-body p {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment-body p + p,
+.comment-body ul + p {
+  margin-top: 10px;
+}
+
+.comment-body ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.comment-body li {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.comment-body li + li {
+  margin-top: 5px;
+}
+
+.comment-body strong {
+  font-weight: 700;
+}
+
+.pr-sidebar {
+  min-width: 0;
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sidebar-head i {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.reviewers {
+  display: grid;
+  gap: 13px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reviewer {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 9px;
+  align-items: center;
+}
+
+.rv-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-muted);
+}
+
+.rv-name {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rv-status {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rv-status .oct {
+  display: block;
+}
+
+.rv-status .pending {
+  color: #d4a72c;
+}
+
+.rv-status .done {
+  display: none;
+  color: #1a7f37;
+}
+
+.reviewer.approved .rv-status .pending {
+  display: none;
+}
+
+.reviewer.approved .rv-status .done {
+  display: block;
+}
+
+
 .timeline {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0;
+  gap: 10px;
+  padding: 14px 22px 18px;
   border-top: 1px solid var(--border);
   background: var(--surface-muted);
 }
 
 .timeline-step {
   display: grid;
-  place-items: center;
-  min-height: 64px;
-  border-right: 1px solid var(--border);
-  font-size: 28px;
-  filter: grayscale(0.85);
-  opacity: 0.56;
-  transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+  gap: 7px;
 }
 
-.timeline-step:last-child {
-  border-right: 0;
+.timeline-step .seg {
+  height: 6px;
+  border-radius: 999px;
+  background-color: var(--border);
+  transition: background-color 0.25s ease;
 }
 
-.timeline-step.done,
-.timeline-step.current {
-  filter: grayscale(0);
-  opacity: 1;
+.timeline-step small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  transition: color 0.25s ease;
 }
 
-.timeline-step.current {
-  transform: translateY(-3px) scale(1.12);
+/* Completed steps are a softer gold; the current step is full strength. */
+.timeline-step.done .seg {
+  background-color: color-mix(in srgb, var(--green) 55%, var(--surface));
+}
+
+.timeline-step.current .seg {
+  background-color: var(--green);
+}
+
+.timeline-step.done small {
+  color: var(--text);
+}
+
+.timeline-step.current small {
+  color: var(--text);
+  font-weight: 700;
 }
 
 .section {
@@ -574,56 +839,96 @@ h2 {
 }
 
 .review-list {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .review-item {
   display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 14px;
-  padding: 18px;
+  grid-template-columns: 46px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
 }
 
-.review-item + .review-item {
-  border-top: 1px solid var(--border);
+.review-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.review-item strong {
+  font-size: 16px;
+  letter-spacing: -0.01em;
 }
 
 .review-item p {
-  margin: 4px 0 0;
+  margin: 3px 0 0;
   color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.review-item p code {
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--surface-muted);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.88em;
 }
 
 .avatar {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  color: #ffffff;
-  background: var(--green);
+  width: 46px;
+  height: 46px;
+  /* squircle app-icon look */
+  border-radius: 13px;
+  color: #1f2328;
+  background: linear-gradient(160deg, #ffd86b 0%, var(--green) 70%);
   font-size: 13px;
   font-weight: 800;
+  box-shadow: 0 6px 16px rgba(253, 195, 38, 0.32);
 }
 
 .avatar.user {
-  background: var(--blue);
+  color: #ffffff;
+  background: linear-gradient(160deg, #3b8eea 0%, var(--blue) 70%);
+  box-shadow: 0 6px 16px rgba(9, 105, 218, 0.30);
 }
 
 .avatar.rules {
-  background: var(--orange);
+  color: #ffffff;
 }
 
+.avatar.rules {
+  background: linear-gradient(160deg, #e0701f 0%, var(--orange) 70%);
+  box-shadow: 0 6px 16px rgba(188, 76, 0, 0.30);
+}
+
+.avatar i {
+  font-size: 23px;
+  line-height: 1;
+}
+
+/* The status section frames the MacBook screen with side margins so it
+   doesn't fight the header/footer. */
 .screens-section {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1fr);
-  gap: clamp(28px, 5vw, 70px);
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
   align-content: center;
   /* Last panel shares its 100dvh with the footer below it */
   min-height: calc(100dvh - var(--header-h) - var(--footer-h));
-  padding: 56px clamp(18px, 5vw, 76px);
+  padding: clamp(24px, 3.5vw, 48px) clamp(24px, 6vw, 96px);
 }
 
 .section-copy.compact {
@@ -632,8 +937,13 @@ h2 {
 
 .menubar-demo {
   font-family: var(--system-font);
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
-  max-width: 900px;
+  width: 100%;
+  max-width: 1200px;
+  /* True MacBook screen proportion */
+  aspect-ratio: 16 / 10;
   margin: 0 auto;
   border: 1px solid #000000;
   border-radius: 18px;
@@ -641,13 +951,74 @@ h2 {
   box-shadow: 0 22px 80px rgba(0, 0, 0, 0.28);
 }
 
+/* macOS "desktop" wallpaper. The heading sits on the desktop and the
+   Peck popover drops from the menu bar on the right. */
+.mac-desktop {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  padding: clamp(32px, 5vw, 88px);
+  background:
+    radial-gradient(1200px 620px at 16% 14%, rgba(184, 134, 11, 0.30), transparent 62%),
+    radial-gradient(1000px 560px at 92% 90%, rgba(9, 105, 218, 0.18), transparent 60%),
+    linear-gradient(165deg, #0c2114 0%, #060606 74%);
+}
+
+.desktop-copy {
+  max-width: 560px;
+}
+
+.desktop-copy .eyebrow {
+  color: #e0b23a;
+}
+
+.desktop-copy .display-title {
+  margin: 0;
+  color: #f0f6fc;
+  font-size: clamp(34px, 3.8vw, 60px);
+}
+
+/* The popover drops from the menu bar at the top-right, like a real
+   macOS menu-bar dropdown opened from the Peck icon. It's scaled down so
+   the whole list shows without being clipped. */
+.mac-desktop .status-grid {
+  position: absolute;
+  top: clamp(3px, 0.6vw, 7px);
+  right: clamp(20px, 3.5vw, 64px);
+  width: 432px;
+  transform: scale(0.74);
+  transform-origin: top right;
+}
+
+/* The speech-bubble tip hangs off the active Peck menu-bar icon so it
+   always points up from the icon the popover opened from. */
+.peck-menu-item.active {
+  position: relative;
+}
+
+.peck-menu-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 8px solid var(--surface);
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
 .mac-menu-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  min-height: 44px;
-  padding: 5px 16px;
+  min-height: 32px;
+  padding: 3px 14px;
   color: #ffffff;
   background: #050505;
   font-size: 14px;
@@ -660,19 +1031,30 @@ h2 {
   gap: 14px;
 }
 
+.menu-left .apple-logo {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 2px;
+  color: #ffffff;
+}
+
+.menu-app {
+  font-weight: 700;
+}
+
 .menu-right {
   gap: 12px;
 }
 
 .menu-right i {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .peck-menu-item {
   display: grid;
   place-items: center;
-  width: 58px;
-  height: 34px;
+  width: 42px;
+  height: 24px;
   border-radius: 999px;
 }
 
@@ -681,17 +1063,17 @@ h2 {
 }
 
 .peck-menu-item img {
-  width: 25px;
-  height: 25px;
+  width: 18px;
+  height: 18px;
   filter: invert(1);
 }
 
 .status-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  max-width: 440px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* Section 2: the agent Reviews window pulled up beside the copy */
@@ -714,10 +1096,6 @@ h2 {
   min-height: auto;
 }
 
-/* Scale the macOS status mockup down so the panel stays within 100dvh */
-.screens-section .menubar-demo {
-  zoom: 0.82;
-}
 
 .app-preview-window {
   position: relative;
@@ -727,6 +1105,17 @@ h2 {
   border-radius: 26px;
   background: var(--surface);
   box-shadow: var(--panel-shadow);
+  font-family: var(--system-font);
+}
+
+/* In dark mode the window blends into the dark background, so add a soft
+   gold glow + light edge to lift it off the surface. */
+@media (prefers-color-scheme: dark) {
+  .app-preview-window {
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.6),
+      0 0 90px 18px rgba(253, 195, 38, 0.32);
+  }
 }
 
 .app-toolbar {
@@ -734,8 +1123,8 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  min-height: 58px;
-  padding: 12px 20px;
+  min-height: 46px;
+  padding: 8px 20px;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
 }
@@ -751,7 +1140,7 @@ h2 {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--green);
+  background: #2da44e;
 }
 
 .app-actions {
@@ -777,7 +1166,7 @@ h2 {
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   align-items: center;
-  padding: 9px 20px;
+  padding: 6px 20px;
   border-bottom: 1px solid var(--border);
   background: var(--surface);
 }
@@ -785,17 +1174,17 @@ h2 {
 .app-tabs span {
   display: grid;
   place-items: center;
-  min-height: 36px;
-  border-radius: 10px;
+  min-height: 28px;
+  border-radius: 9px;
   color: var(--muted);
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .app-tabs .active {
   color: var(--text);
   background: var(--surface-muted);
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .window-lights {
@@ -991,7 +1380,7 @@ h2 {
 }
 
 .review-card {
-  padding: 20px;
+  padding: 18px;
 }
 
 .review-card + .review-card {
@@ -1003,7 +1392,7 @@ h2 {
   flex-wrap: wrap;
   gap: 16px;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 9px;
   color: var(--muted);
   font-size: 14px;
 }
@@ -1027,7 +1416,7 @@ h2 {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin-top: 12px;
+  margin-top: 10px;
   color: var(--muted);
   font-size: 13px;
 }
@@ -1036,11 +1425,11 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 34px;
-  padding: 5px 10px;
+  min-height: 26px;
+  padding: 3px 11px;
   border-radius: 999px;
   color: #ffffff;
-  font-weight: 850;
+  font-weight: 750;
   line-height: 1;
 }
 
@@ -1049,11 +1438,12 @@ h2 {
 }
 
 .review-verdict.approve {
+  color: #1f2328;
   background: var(--green);
 }
 
 .review-summary {
-  margin: 13px 0 0;
+  margin: 10px 0 0;
   color: var(--text);
   font-size: 15px;
   line-height: 1.28;
@@ -1061,8 +1451,8 @@ h2 {
 
 .review-notes {
   display: grid;
-  gap: 8px;
-  margin: 12px 0 0;
+  gap: 6px;
+  margin: 9px 0 0;
   padding: 0;
   list-style: none;
   color: var(--muted);
@@ -1083,7 +1473,7 @@ h2 {
 
 .review-body-label {
   display: block;
-  margin-top: 12px;
+  margin-top: 10px;
   color: var(--muted);
   font-weight: 850;
 }
@@ -1091,14 +1481,14 @@ h2 {
 .review-body-box {
   display: block;
   width: 100%;
-  min-height: 132px;
-  margin-top: 7px;
-  padding: 13px;
+  min-height: 118px;
+  margin-top: 6px;
+  padding: 11px;
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
   background: var(--surface);
-  font: 15px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font: 14px/1.35 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   white-space: pre-wrap;
 }
 
@@ -1278,20 +1668,20 @@ h2 {
 .review-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
 .review-actions button {
-  min-height: 36px;
-  padding: 0 16px;
+  min-height: 30px;
+  padding: 0 12px;
   border: 0;
-  border-radius: 9px;
+  border-radius: 8px;
   color: var(--text);
   background: var(--surface);
   font: inherit;
-  font-weight: 750;
-  font-size: 15px;
+  font-weight: 650;
+  font-size: 14px;
 }
 
 .review-actions button:first-child {
@@ -1313,7 +1703,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 10px;
   color: var(--text);
   font-size: 15px;
   font-weight: 650;
@@ -1373,6 +1763,20 @@ footer span {
     zoom: 1;
   }
 
+  .screens-section .menubar-demo {
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .mac-desktop {
+    padding: 28px 20px;
+  }
+
+  .mac-desktop .status-grid {
+    transform: none;
+    width: 100%;
+  }
+
   footer {
     height: auto;
     padding: 26px;
@@ -1392,6 +1796,24 @@ footer span {
   /* Stack copy above the mock on small screens. */
   .section.github-feed .agent-preview {
     order: 0;
+  }
+
+  /* Stack the desktop heading above the Peck popover on small screens. */
+  .mac-desktop {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+    aspect-ratio: auto;
+  }
+
+  .mac-desktop .status-grid {
+    position: static;
+    width: 100%;
+    right: auto;
+  }
+
+  .mac-desktop .status-grid::before {
+    display: none;
   }
 
   .hero {
@@ -1516,11 +1938,6 @@ footer span {
   .mascot-ring img {
     width: 72px;
     height: 72px;
-  }
-
-  .timeline-step {
-    min-height: 54px;
-    font-size: 24px;
   }
 
   .check-line {

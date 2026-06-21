@@ -37,13 +37,9 @@
           <div class="hero-actions" aria-label="Download and source links">
             <a class="button primary" href="https://github.com/pecklabs/peck/releases/latest/download/Peck.dmg">
               <i class="ph ph-download-simple" aria-hidden="true"></i>
-              Download for macOS
+              Download for macOS (Apple silicon)
             </a>
           </div>
-          <p class="hero-note">
-            <i class="ph ph-apple-logo" aria-hidden="true"></i>
-            Requires macOS on Apple silicon (M1 or later).
-          </p>
         </div>
 
         <div class="pr-window" aria-label="Animated GitHub-style pull request status preview">
@@ -75,28 +71,75 @@
             </nav>
           </div>
           <div class="pr-title-row">
-            <div>
-              <h2>Ship review queue sidebar</h2>
+            <h2>Meet Peck — review PRs from your menu bar</h2>
+            <div class="pr-meta">
+              <span class="state open"><i class="ph ph-git-pull-request" aria-hidden="true"></i> Open</span>
               <p>#128 opened by sasha · updated just now</p>
             </div>
-            <span class="state open">Open</span>
           </div>
-          <div class="checks-panel">
-            <div class="check-line active">
-              <span class="check-dot"></span>
-              <div>
-                <strong>Peck agent is reviewing</strong>
-                <p>Diff scanned, risks summarized, verdict ready to post.</p>
+          <div class="pr-main">
+            <nav class="pr-tabs" aria-label="Pull request sections">
+                <span class="active"><i class="ph ph-chat-circle" aria-hidden="true"></i> Conversation <em>8</em></span>
+                <span><i class="ph ph-git-commit" aria-hidden="true"></i> Commits <em>2</em></span>
+                <span><i class="ph ph-check-square-offset" aria-hidden="true"></i> Checks <em>5</em></span>
+                <span><i class="ph ph-file-text" aria-hidden="true"></i> Files changed <em>7</em></span>
+                <span class="pr-diffstat" aria-label="Diff summary">
+                  <span class="plus">+91</span>
+                  <span class="minus">−36</span>
+                  <span class="diff-squares" aria-hidden="true">
+                    <i class="sq add"></i><i class="sq add"></i><i class="sq del"></i>
+                  </span>
+                </span>
+            </nav>
+            <div class="pr-content">
+              <div class="pr-comment">
+                <img class="comment-avatar" src="assets/avatars/sasha.png" alt="" loading="lazy">
+                <div class="comment-box">
+                  <div class="comment-head">
+                    <strong>sasha1107</strong> commented 2 days ago
+                  </div>
+                  <div class="comment-body">
+                    <p><strong>Peck</strong> is a native macOS menu-bar app that turns PR review into a quest 🐣</p>
+                    <ul>
+                      <li><strong>Live approval status</strong> — watch each PR grow from egg → chick → chicken</li>
+                      <li><strong>Agent verdicts</strong> — reads the diff, summarizes risk, and recommends a call</li>
+                      <li><strong>GitHub-native</strong> — your login, your review, posted in one click</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <span class="check-time">12s</span>
-            </div>
-            <div class="check-line">
-              <span class="check-dot approved"></span>
-              <div>
-                <strong id="approvalLabel">0 of 3 approvals</strong>
-                <p id="approvalText">Waiting for the first review.</p>
+            <aside class="pr-sidebar">
+              <div class="sidebar-head">
+                <span>Reviewers</span>
+                <i class="ph ph-gear-six" aria-hidden="true"></i>
               </div>
-              <span class="check-time" id="approvalStage">Egg</span>
+              <ul class="reviewers" id="reviewers">
+                <li class="reviewer" data-reviewer="0">
+                  <img class="rv-avatar" src="assets/avatars/rv1.png" alt="" loading="lazy">
+                  <span class="rv-name">junwoo-do</span>
+                  <span class="rv-status">
+                    <svg class="oct pending" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path></svg>
+                    <svg class="oct done" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+                  </span>
+                </li>
+                <li class="reviewer" data-reviewer="1">
+                  <img class="rv-avatar" src="assets/avatars/rv2.png" alt="" loading="lazy">
+                  <span class="rv-name">haeun-k</span>
+                  <span class="rv-status">
+                    <svg class="oct pending" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path></svg>
+                    <svg class="oct done" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+                  </span>
+                </li>
+                <li class="reviewer" data-reviewer="2">
+                  <img class="rv-avatar" src="assets/avatars/rv3.png" alt="" loading="lazy">
+                  <span class="rv-name">leo-park</span>
+                  <span class="rv-status">
+                    <svg class="oct pending" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 4a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"></path></svg>
+                    <svg class="oct done" aria-hidden="true" height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path></svg>
+                  </span>
+                </li>
+              </ul>
+            </aside>
             </div>
           </div>
           <div class="mascot-stage">
@@ -104,16 +147,10 @@
               <img id="mascotImage" src="assets/mascots/egg.png" alt="Egg approval stage">
             </div>
             <div class="stage-copy">
-              <p class="stage-kicker">Live approval status</p>
+              <p class="stage-kicker" id="approvalLabel">0 of 3 approvals</p>
               <strong id="stageTitle">Egg</strong>
               <span id="stageDescription">A fresh PR is waiting for reviewers.</span>
             </div>
-          </div>
-          <div class="timeline" aria-label="Approval progress">
-            <span class="timeline-step current" data-step="0">🥚</span>
-            <span class="timeline-step" data-step="1">🐣</span>
-            <span class="timeline-step" data-step="2">🐔</span>
-            <span class="timeline-step" data-step="3">🍗</span>
           </div>
         </div>
       </section>
@@ -128,21 +165,21 @@
           </p>
           <div class="review-list" aria-label="Review queue features">
           <article class="review-item">
-            <span class="avatar">AI</span>
+            <span class="avatar"><i class="ph ph-sparkle" aria-hidden="true"></i></span>
             <div>
               <strong>Draft verdicts</strong>
               <p>Ready-to-post review bodies with the reasoning separated from the action.</p>
             </div>
           </article>
           <article class="review-item">
-            <span class="avatar rules">MD</span>
+            <span class="avatar rules"><i class="ph ph-list-checks" aria-hidden="true"></i></span>
             <div>
               <strong>Your review rules</strong>
-              <p>Drop markdown skill files into the app support folder so the agent reviews like your team.</p>
+              <p>Drop a <code>skill.md</code> file into the app support folder so the agent reviews like your team.</p>
             </div>
           </article>
           <article class="review-item">
-            <span class="avatar user">GH</span>
+            <span class="avatar user"><i class="ph ph-github-logo" aria-hidden="true"></i></span>
             <div>
               <strong>GitHub-native workflow</strong>
               <p>Uses your existing GitHub CLI login or token, with credentials kept in Keychain.</p>
@@ -191,7 +228,15 @@
                     <li><i class="ph ph-warning-circle" aria-hidden="true"></i> No test covering clear() during the TTL window</li>
                   </ul>
                   <span class="review-body-label">Review body</span>
-                  <div class="review-body-box">A couple of things before this is good to merge:</div>
+                  <div class="review-body-box">A couple of things before this is good to merge:
+
+1. clear() doesn't cancel the pending eviction timer, so a stale
+   timer can fire after a flush and revive evicted entries — cancel
+   it inside clear().
+2. Add a test that calls clear() during the TTL window to lock
+   this down.
+
+Otherwise the TTL eviction approach looks solid. Thanks!</div>
                   <div class="review-actions">
                     <button type="button">Approve</button>
                     <button type="button" class="danger">Request changes</button>
@@ -209,14 +254,15 @@
       </section>
 
       <section class="screens-section" id="status" aria-labelledby="status-title">
-        <div class="section-copy compact">
-          <p class="eyebrow">My PR status</p>
-          <h2 class="display-title" id="status-title">See who's still an egg,<br>who's hatching,<br>and who's fried.</h2>
-        </div>
         <div class="menubar-demo">
           <div class="mac-menu-bar" aria-hidden="true">
             <div class="menu-left">
-              <span>Peck</span>
+              <span class="apple-logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" role="img" aria-label="Apple">
+                  <path fill="currentColor" d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.09997 22C7.78997 22.05 6.79997 20.68 5.95997 19.47C4.24997 17 2.93997 12.45 4.69997 9.39C5.56997 7.87 7.12997 6.91 8.81997 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/>
+                </svg>
+              </span>
+              <span class="menu-app">Peck</span>
               <span>File</span>
               <span>Edit</span>
               <span>View</span>
@@ -230,7 +276,12 @@
               <span>9:41</span>
             </div>
           </div>
-          <div class="status-grid">
+          <div class="mac-desktop">
+            <div class="desktop-copy">
+              <p class="eyebrow">My PR status</p>
+              <h2 class="display-title" id="status-title">See who's still an egg,<br>who's hatching,<br>and who's fried.</h2>
+            </div>
+            <div class="status-grid">
             <section class="app-preview-window menu-popover" aria-label="My pull request status preview">
             <div class="app-toolbar">
               <div class="app-name">
@@ -300,7 +351,7 @@
                   <h3>fix(api): handle null user on /v2 submission</h3>
                   <p class="repo-meta">acme/api #88</p>
                   <div class="quest-strip laid-strip">
-                    <img src="assets/mascots/chicken.png" alt="">
+                    <img src="assets/mascots/chick.png" alt="">
                     <div class="quest-progress-copy">
                       <div>
                         <strong>Grown</strong>
@@ -320,6 +371,7 @@
               </div>
             </div>
             </section>
+          </div>
           </div>
         </div>
       </section>
