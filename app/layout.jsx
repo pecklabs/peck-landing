@@ -3,9 +3,11 @@ import { Agentation } from "agentation";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
 
 const title = "Peck - AI PR review agent";
 const description =
@@ -21,7 +23,9 @@ export const metadata = {
     url: "/",
     siteName: "Peck",
     type: "website",
-    images: [{ url: "/og-b.png", width: 1200, height: 630, alt: title }]
+    images: [
+      { url: "/og-b.png", width: 1200, height: 630, type: "image/png", alt: title }
+    ]
   },
   twitter: {
     card: "summary_large_image",
