@@ -1,5 +1,7 @@
-import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Agentation } from "agentation";
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -47,9 +49,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        <Analytics />
         {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }

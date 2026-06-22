@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@vercel/analytics";
+import { sendGAEvent } from "@next/third-parties/google";
 import { useEffect } from "react";
 
 const downloadHref = "https://github.com/pecklabs/peck/releases/latest/download/Peck.dmg";
@@ -30,7 +30,7 @@ export default function DownloadTracking() {
         return;
       }
 
-      track("Download DMG", {
+      sendGAEvent("event", "download_dmg", {
         href: link.href,
         location: getDownloadLocation(link)
       });
